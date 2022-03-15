@@ -6,35 +6,52 @@ public class SnakeAndLadder {
     static final int SNAKE = 2;
 
     public static void main(String[] args){
-        int position = 0;
-        int rolls = 0;
-        while (position < 100) {
-            int dice = (int) (Math.random()*6)+1;
-            //System.out.println("No on dice : "+dice);
-            rolls++;
-            int option = (int) (Math.random()*3);
-            //System.out.println("Option : "+option);
-            switch (option) {
-                case LADDER :
-                    //System.out.println("Ladder");
-                    position = position + dice;
-                    break;
-                case SNAKE :
-                    //System.out.println("Snake");
-                    position = position - dice;
-                    break;
-                case NO_PLAY :
-                    //System.out.println("No Play");
-                    break;
+        int position1 = 0;
+        int position2 = 0;
+        int turn = 1;
+        while (position1 < 100 && position2<100) {
+            if (turn == 1) {
+                position1 = DiceRoll(position1);
+                turn = 2;
             }
-            if (position<0) {
-                position = 0;
+            else {
+                position2 = DiceRoll(position2);
+                turn = 1;
             }
-            if (position > 100) {
-                position = position - dice;
             }
-            System.out.println("Position : "+position);
+        System.out.println("Position1 :"+position1+" Position2 :"+position2);
+        if (position1 == 100) {
+            System.out.println("Player1 is the winner");
         }
-        System.out.println("Total dice rolls : "+rolls);
+        else {
+            System.out.println("Player2 is the winner");
+        }
+    }
+
+    public static int DiceRoll(int position) {
+        int dice = (int) (Math.random()*6)+1;
+        int option = (int) (Math.random()*3);
+
+        switch (option) {
+            case LADDER :
+                position = position + dice;
+                break;
+            case SNAKE :
+                position = position - dice;
+                break;
+            case NO_PLAY :
+                break;
+        }
+        if (position<0) {
+            position = 0;
+        }
+        if (position > 100) {
+            position = position - dice;
+        }
+//        if (option == LADDER) {
+//
+//        }
+        return position;
     }
 }
+
